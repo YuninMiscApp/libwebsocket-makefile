@@ -2,7 +2,7 @@
 
 PHONY : all
 
-TARGET_NAME ?= make_app
+TARGET_NAME ?= libwebsockets
 
 AS	= $(CROSS_COMPILE)as
 LD	= $(CROSS_COMPILE)ld
@@ -34,7 +34,7 @@ MAKEFILE_BUILD := scripts/Makefile.build
 MAKEFILE_TEST_BUILD := scripts/Makefile.test.build
 export MAKEFILE_BUILD MAKEFILE_TEST_BUILD
 
-dirs := ipc/ block/ drivers/
+dirs := lib/
 dirs := ${patsubst %/,%,$(filter %/, $(dirs))}
 PHONY += $(dirs)
 $(dirs): FORCE
