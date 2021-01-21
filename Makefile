@@ -2,7 +2,7 @@
 
 PHONY : all
 
-TARGET_NAME ?= libwebsockets
+TARGET_NAME ?= target/bin/libwebsockets
 
 AS	= $(CROSS_COMPILE)as
 LD	= $(CROSS_COMPILE)ld
@@ -16,8 +16,45 @@ OBJDUMP = $(CROSS_COMPILE)objdump
 RANLIB	= $(CROSS_COMPILE)RANLIB
 
 CFLAGS =
-CFLAGS += -rdynamic -pipe -O2 -Wall
+CFLAGS += -fPIC -rdynamic -pipe -O2 -Wall
 CFLAGS += -I include
+CFLAGS += -I ./lib/core-net
+#CFLAGS += -I ./lib/event-libs/sdevent
+#CFLAGS += -I ./lib/event-libs/libev
+#CFLAGS += -I ./lib/event-libs/glib
+CFLAGS += -I ./lib/event-libs
+#CFLAGS += -I ./lib/event-libs/libevent
+#CFLAGS += -I ./lib/event-libs/libuv
+#CFLAGS += -I ./lib/event-libs/poll
+CFLAGS += -I ./lib/tls
+#CFLAGS += -I ./lib/tls/mbedtls
+CFLAGS += -I ./lib/tls/openssl
+CFLAGS += -I ./lib/core
+CFLAGS += -I ./lib/secure-streams
+CFLAGS += -I ./lib/abstract
+CFLAGS += -I ./lib/abstract/protocols/smtp
+CFLAGS += -I ./lib/system/smd
+CFLAGS += -I ./lib/system/async-dns
+CFLAGS += -I ./lib/system/dhcpclient
+CFLAGS += -I ./lib/roles/h2
+CFLAGS += -I ./lib/roles/dbus
+CFLAGS += -I ./lib/roles/cgi
+CFLAGS += -I ./lib/roles/ws
+CFLAGS += -I ./lib/roles/raw-proxy
+CFLAGS += -I ./lib/roles/http/compression
+CFLAGS += -I ./lib/roles/http
+CFLAGS += -I ./lib/roles/h1
+CFLAGS += -I ./lib/roles/mqtt
+CFLAGS += -I ./lib/roles
+CFLAGS += -I ./lib/jose
+CFLAGS += -I ./lib/jose/jws
+CFLAGS += -I ./lib/jose/jwe
+CFLAGS += -I ./lib/misc/fts
+CFLAGS += -I ./lib/misc/lwsac
+CFLAGS += -I ./lib/drivers/led
+#CFLAGS += -I ./lib/plat/windows
+#CFLAGS += -I ./lib/plat/optee
+#CFLAGS += -I ./lib/plat/freertos
 CFLAGS += -I ./lib/plat/unix
 
 LDFLAGS = 
@@ -27,7 +64,7 @@ export AS LD CC CPP AR NM STRIP OBJCOPY OBJDUMP RANLIB CFLAGS LDFLAGS
 
 TEST_CFLAGS ?= ${CFLAGS}
 LINK_PATH := -L libs
-LD_LIBS := -lipc -lblock
+LD_LIBS :=
 
 export TEST_CFLAGS LINK_PATH LD_LIBS
 
@@ -63,7 +100,7 @@ clean:	FORCE
 
 distclean: clean
 	@echo ">>> distclean target"
-	@rm -fr bin/ libs/
+	@rm -fr target/bin/ target/libs/
 
 help: 
 	@echo  'Cleaning targets:'

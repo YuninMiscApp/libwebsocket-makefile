@@ -16,11 +16,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 
-#include "type.h"
-#include "ipc.h"
-#include "block.h"
-
-
 
 #ifdef  __cplusplus
 extern "C" {
@@ -36,12 +31,6 @@ extern "C" {
 int
 main(int argc, char *argv[])
 {
-	block_info_t *blockInfo = block_new();
-	ASSERT(blockInfo);
-	ipc_info_t *ipcInfo = ipc_new();
-	ASSERT(ipcInfo);
-	printf("[block name]:%s,[ipc name]:%s\n\r"
-	,block_name_get(blockInfo),ipc_name_get(ipcInfo));
 	return 0;
 }
 
